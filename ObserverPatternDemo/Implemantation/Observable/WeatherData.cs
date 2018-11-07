@@ -10,8 +10,6 @@ namespace ObserverPatternDemo.Implemantation.Observable
     {
         private List<IObserver<WeatherInfo>> observers = new List<IObserver<WeatherInfo>>();
 
-        private WeatherInfo weather = new WeatherInfo();
-
         /// <summary>
         /// Start broadcasting.
         /// </summary>
