@@ -17,20 +17,21 @@ namespace ObserverPatternDemo.Implemantation.Observable
         /// </summary>
         public void StartNotify()
         {
-            WeatherInfo weather = new WeatherInfo();
-
             ConsoleKeyInfo keyInfo = new ConsoleKeyInfo();
 
             Random rnd = new Random();
 
             while (keyInfo.Key != ConsoleKey.Escape)
             {
-                weather.Temperature = rnd.Next(-30, 35);
-                weather.Humidity = rnd.Next(0, 99);
-                weather.Pressure = rnd.Next(0, 999); 
+                WeatherInfo weather = new WeatherInfo()
+                {
+                    Temperature = rnd.Next(-30, 35),
+                    Humidity = rnd.Next(0, 99),
+                    Pressure = rnd.Next(0, 999),
+                };
 
                 Console.Clear();
-                this.Notify(this, weather);
+                this.Notify(weather);
 
                 Thread.Sleep(500);
                 if (Console.KeyAvailable)
@@ -38,15 +39,15 @@ namespace ObserverPatternDemo.Implemantation.Observable
             }
         }
 
-        void IObservable<WeatherInfo>.Notify(IObservable<WeatherInfo> sender, WeatherInfo info)
-            => this.Notify(sender, info);
+        void IObservable<WeatherInfo>.Notify(WeatherInfo info)
+            => this.Notify(info);
 
         /// <summary>
         /// Notify observer about change of info.
         /// </summary>
         /// <param name="sender">Reference to sender.</param>
         /// <param name="info">Information.</param>
-        private void Notify(IObservable<WeatherInfo> sender, WeatherInfo info)
+        private void Notify(WeatherInfo info)
         {
             if (ReferenceEquals(info, null))
                 return;
